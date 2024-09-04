@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Parâmetros</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-y: auto; /* Permite rolagem vertical se necessário */
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(/img/44444.png);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            width: 95%;
+            max-width: 1200px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 5px;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin: 0;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .parametros {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .resultados {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            overflow-x: auto; /* Permite rolagem horizontal para tabelas largas */
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        input, select, button {
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: calc(33.76% - 12px);
+            box-sizing: border-box;
+            transition: box-shadow 0.1s;
+        }
+
+        input:focus, select:focus {
+            box-shadow: 0 0 5px rgba(100, 100, 100, 0.5);
+        }
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 12px;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .remove-btn {
+            background-color: transparent; 
+            color: red; 
+            border: none;
+            font-size: 16px; 
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.2); 
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            input, select, button {
+                width: 100%; /* Ocupa toda a largura disponível */
+            }
+
+            table {
+                font-size: 12px;
+                overflow-x: auto;
+                display: block;
+            }
+
+            th, td {
+                white-space: nowrap; /* Impede que o texto das células quebre para nova linha */
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-section">
+            <div class="logo-container">
+                <img src="/img/img-1 (2).png" alt="Logo" class="logo">
+            </div>
+            <h1>Calculadora de Parâmetros de Torneamento</h1>
+        </div>
+
+        <div class="main-content">
+            <div class="parametros">
+                <form id="form-adicionar-linha">
+                    <select id="operacao">
+                        <option value="Faceamento">Faceamento</option>
+                        <option value="Desbaste">Desbaste</option>
+                        <option value="Acabamento">Acabamento</option>
+                    </select>
+                    <select id="material">
+                        <option value="SAE 1018">SAE 1018</option>
+                        <option value="SAE 1020">SAE 1020</option>
+                        <option value="SAE 1045">SAE 1045</option>
+                        <option value="SAE 1080">SAE 1080</option>
+                        <option value="SAE 4140">SAE 4140</option>
+                        <option value="SAE 4340">SAE 4340</option>
+                        <option value="Aço Inox 304">Aço Inox 304</option>
+                        <option value="Aço Inox 316">Aço Inox 316</option>
+                        <option value="Alumínio 6061">Alumínio 6061</option>
+                        <option value="Latão">Latão</option>
+                        <option value="Nylon">Nylon</option>
+                    </select>
+                    <input type="number" id="diametro" placeholder="Diâmetro da Peça (D) (mm)" step="0.01">
+                    <input type="number" id="ap" placeholder="Profundidade de Corte (ap) (mm)" step="0.01">
+                    <input type="number" id="vc" placeholder="Velocidade de Corte (Vc) (m/min)" step="0.01">
+                    <input type="number" id="f" placeholder="Avanço por Rotação (f) (mm/rot)" step="0.01">
+                    <input type="number" id="n" placeholder="Rotação (RPM)" step="0.01">
+                    <input type="number" id="tempo" placeholder="Tempo de Operação (min)" step="0.01">
+                    <input type="number" id="l" placeholder="Comprimento Longitudinal (L) (mm)" step="0.01">
+                    <input type="number" id="vf" placeholder="Velocidade de Avanço (Vf) (mm/min)" step="0.01">
+                    <input type="number" id="mrr" placeholder="Taxa de Remoção de Material (MRR) (mm³/min)" step="0.01">
+                    <input type="number" id="p" placeholder="Potência de Usinagem (P) (kW)" step="0.01">
+                    <input type="number" id="t" placeholder="Torque (T) (Nm)" step="0.01">
+                    <input type="number" id="fc" placeholder="Força de Corte (Fc) (N)" step="0.01">
+                    <input type="number" id="Kc" placeholder="Coeficiente de Força Específica de Corte (Kc) (MPa)" step="0.01">
+                    <button type="submit">Calcular</button>
+                </form>
+            </div>
+
+            <div class="resultados">
+                <table id="tabela-usinagem">
+                    <thead>
+                        <tr>
+                            <th>Operação</th>
+                            <th>Material</th>
+                            <th>Diâmetro (D)</th>
+                            <th>Profundidade de Corte (ap)</th>
+                            <th>Velocidade de Corte (Vc)</th>
+                            <th>Avanço por Rotação (f)</th>
+                            <th>Rotação (RPM)</th>
+                            <th>Tempo de Operação</th>
+                            <th>Comprimento Longitudinal (L)</th>
+                            <th>Velocidade de Avanço (Vf)</th>
+                            <th>MRR</th>
+                            <th>Potência de Usinagem (P)</th>
+                            <th>Torque (T)</th>
+                            <th>Força de Corte (Fc)</th>
+                            <th>Kc</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas geradas dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
