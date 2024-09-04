@@ -16,6 +16,7 @@
             min-height: 100vh;
             position: relative;
             overflow-y: auto; /* Permite rolagem vertical se necessário */
+            background-color: #f0f0f0;
         }
 
         body::before {
@@ -94,7 +95,7 @@
             font-size: 14px;
             border-radius: 5px;
             border: 1px solid #ddd;
-            width: calc(33.76% - 12px);
+            width: calc(33.33% - 10px); /* Ajuste para caber em 3 colunas */
             box-sizing: border-box;
             transition: box-shadow 0.1s;
         }
@@ -176,6 +177,11 @@
                 width: 100%; /* Ocupa toda a largura disponível */
             }
 
+            form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
             table {
                 font-size: 12px;
                 overflow-x: auto;
@@ -187,13 +193,35 @@
                 font-size: 10px;
             }
         }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+
+            input, select, button {
+                width: 100%; /* Ajuste adicional para telas muito pequenas */
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            th, td {
+                font-size: 10px;
+                padding: 8px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="top-section">
             <div class="logo-container">
-                <img src="img-1 (2).png" alt="Logo" class="logo">
+                <img src="/img/img-1 (2).png" alt="Logo" class="logo">
             </div>
             <h1>Calculadora de Parâmetros de Torneamento</h1>
         </div>
@@ -231,25 +259,25 @@
                     <input type="number" id="p" placeholder="Potência de Usinagem (P) (kW)" step="0.01">
                     <input type="number" id="t" placeholder="Torque (T) (Nm)" step="0.01">
                     <input type="number" id="fc" placeholder="Força de Corte (Fc) (N)" step="0.01">
-                    <input type="number" id="Kc" placeholder="Coeficiente de Força Específica de Corte (Kc) (MPa)" step="0.01">
-                    <button type="submit">Calcular</button>
+                    <input type="number" id="Kc" placeholder="Coeficiente de Força Específica de Corte (Kc) (N/mm²)" step="0.01">
+                    <button type="submit">Adicionar Linha</button>
                 </form>
             </div>
 
             <div class="resultados">
-                <table id="tabela-usinagem">
+                <table>
                     <thead>
                         <tr>
                             <th>Operação</th>
                             <th>Material</th>
-                            <th>Diâmetro (D)</th>
-                            <th>Profundidade de Corte (ap)</th>
-                            <th>Velocidade de Corte (Vc)</th>
-                            <th>Avanço por Rotação (f)</th>
-                            <th>Rotação (RPM)</th>
-                            <th>Tempo de Operação</th>
-                            <th>Comprimento Longitudinal (L)</th>
-                            <th>Velocidade de Avanço (Vf)</th>
+                            <th>D</th>
+                            <th>ap</th>
+                            <th>Vc</th>
+                            <th>f</th>
+                            <th>n</th>
+                            <th>Tempo</th>
+                            <th>L</th>
+                            <th>Avanço (Vf)</th>
                             <th>MRR</th>
                             <th>Potência de Usinagem (P)</th>
                             <th>Torque (T)</th>
